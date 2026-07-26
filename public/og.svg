@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f5f1"/>
+
+  <!-- hairline frame -->
+  <rect x="64" y="56" width="1072" height="518" fill="none" stroke="#dcd7cd" stroke-width="1"/>
+
+  <!-- eyebrow -->
+  <circle cx="104" cy="112" r="5" fill="#b24626"/>
+  <text x="122" y="118" font-family="Courier New, Courier, monospace" font-size="17" letter-spacing="3" fill="#14130f">PERSONAL PORTFOLIO — ENGINEERING NOTEBOOK</text>
+
+  <!-- name -->
+  <text x="100" y="330" font-family="Courier New, Courier, monospace" font-size="168" font-weight="700" letter-spacing="-3" fill="#14130f">BEKTAY</text>
+
+  <line x1="100" y1="382" x2="1100" y2="382" stroke="#dcd7cd" stroke-width="1"/>
+
+  <!-- roles -->
+  <text x="100" y="432" font-family="Courier New, Courier, monospace" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#14130f">Robotics Engineer</text>
+  <text x="600" y="432" font-family="Courier New, Courier, monospace" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#14130f">Full-Stack Developer</text>
+  <text x="100" y="478" font-family="Courier New, Courier, monospace" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#14130f">AI/ML Engineer</text>
+  <text x="600" y="478" font-family="Courier New, Courier, monospace" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#14130f">Aspiring Startup Founder</text>
+
+  <line x1="100" y1="510" x2="1100" y2="510" stroke="#dcd7cd" stroke-width="1"/>
+
+  <!-- metadata -->
+  <text x="100" y="546" font-family="Courier New, Courier, monospace" font-size="17" letter-spacing="2" fill="#8a857c">AKTOBE, KAZAKHSTAN</text>
+  <text x="470" y="546" font-family="Courier New, Courier, monospace" font-size="17" letter-spacing="2" fill="#8a857c">NIS AKTOBE — GRADE 11</text>
+  <text x="880" y="546" font-family="Courier New, Courier, monospace" font-size="17" letter-spacing="2" fill="#8a857c">GPA 4.8 / 5.0</text>
+</svg>

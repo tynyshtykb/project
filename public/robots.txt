@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace with the real deployed domain.
+Sitemap: https://bektay.dev/sitemap.xml

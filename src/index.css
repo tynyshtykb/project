@@ -1,0 +1,352 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Design tokens — warm paper, charcoal ink, one restrained clay accent.
+   ------------------------------------------------------------------ */
+@theme {
+  --color-paper: #f7f5f1;
+  --color-paper-2: #f1eee8;
+  --color-paper-3: #e9e5dd;
+  --color-ink: #14130f;
+  --color-ink-2: #262420;
+  --color-ink-soft: #4c4840;
+  --color-ink-mute: #8a857c;
+  --color-line: #dcd7cd;
+  --color-line-soft: #e7e3da;
+  --color-accent: #b24626;
+  --color-accent-soft: #d9714e;
+
+  /* Courier New throughout — typewriter / engineering-document character.
+     The fallbacks are the metric-compatible Courier clones shipped on
+     Linux and Android, so the layout holds where Courier New is absent. */
+  --font-sans:
+    'Courier New', Courier, 'Nimbus Mono PS', 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+  --font-mono:
+    'Courier New', Courier, 'Nimbus Mono PS', 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* sized so the six letters of BEKTAI span the full container width */
+  --text-display: clamp(3.5rem, 25.5vw, 23rem);
+  --text-hed: clamp(2.25rem, 6vw, 4.5rem);
+  /* the flagship project name — deliberately larger than the standard cases */
+  --text-subhed: clamp(2.5rem, 6.5vw, 5.5rem);
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* keeps anchored sections clear of the sticky nav */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Component-level utilities
+   ------------------------------------------------------------------ */
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .shell {
+      padding-inline: 4rem;
+    }
+  }
+
+  /* Small uppercase technical label.
+     Courier is already wide, so it needs less tracking than a grotesk would,
+     and a slightly larger size to hold up at label scale. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-mute);
+  }
+
+  .label-ink {
+    color: var(--color-ink);
+  }
+
+  /* Editorial display type. Monospace does not take the heavy negative
+     tracking a grotesk does — it collides — so these are much gentler. */
+  .display {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 0.95;
+  }
+
+  .hed {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+
+  /* Underline that draws in on hover */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.15em;
+    height: 1px;
+    width: 100%;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease-out-quint);
+  }
+
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Outlined watermark numeral behind a section title */
+  .ghost-numeral {
+    font-weight: 700;
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-line);
+    letter-spacing: -0.03em;
+    user-select: none;
+  }
+
+  /* Fine dot matrix — used behind plates and panels */
+  .dot-matrix {
+    background-image: radial-gradient(
+      color-mix(in srgb, var(--color-ink) 16%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 14px 14px;
+  }
+
+  /* Faint engineering graph paper */
+  .grid-paper {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--color-line) 60%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-line) 60%, transparent) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Weight mapping for Courier New
+
+   Courier New ships only 400 and 700. Under CSS font matching, 500 resolves
+   to 400 and 600 to 700 — so every `font-medium` emphasis in the layout would
+   silently flatten into body text. These rules are deliberately left outside
+   @layer so they win over the Tailwind utilities they correct.
+   ------------------------------------------------------------------ */
+.font-medium,
+.font-semibold {
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------------
+   Marquee — the list is tripled, so translating by exactly one third
+   returns to an identical frame and the loop is seamless.
+   ------------------------------------------------------------------ */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+
+.marquee {
+  animation: marquee-scroll 38s linear infinite;
+}
+
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ------------------------------------------------------------------
+   Scroll reveal
+   ------------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.9s var(--ease-out-quint),
+    transform 0.9s var(--ease-out-quint);
+  transition-delay: var(--reveal-delay, 0ms);
+  /* No `will-change` here on purpose: it is applied to dozens of elements for
+     the whole session, and it would make each one a containing block for
+     absolutely positioned descendants. */
+}
+
+.reveal[data-shown='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Line that wipes in from the left */
+.rule-wipe {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.1s var(--ease-out-quint);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.rule-wipe[data-shown='true'] {
+  transform: scaleX(1);
+}
+
+/* Word-by-word text reveal.
+   The padding/negative-margin pair stops tight display line-heights (0.86)
+   from clipping cap heights and descenders inside the overflow mask. */
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.15em 0.05em;
+  margin: -0.15em -0.05em;
+}
+
+.word > span {
+  display: inline-block;
+  transform: translateY(135%);
+  transition: transform 0.95s var(--ease-out-quint);
+  transition-delay: var(--word-delay, 0ms);
+}
+
+.word[data-shown='true'] > span {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .rule-wipe,
+  .word > span {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .marquee {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Print — the page doubles as the downloadable CV
+   ------------------------------------------------------------------ */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 12mm;
+  }
+
+  html {
+    font-size: 9.5pt;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-tight {
+    padding-block: 0.9rem !important;
+    margin-block: 0 !important;
+  }
+
+  .reveal,
+  .rule-wipe,
+  .word > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  section {
+    break-inside: avoid;
+  }
+
+  a {
+    text-decoration: none;
+    color: #000 !important;
+  }
+
+  /* Reveal destinations for external links on paper */
+  a[data-print-url]::after {
+    content: ' (' attr(data-print-url) ')';
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    color: #444;
+  }
+}
