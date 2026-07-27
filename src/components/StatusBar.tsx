@@ -49,11 +49,7 @@ export function StatusBar() {
           <span className="text-ink">{label}</span>
         </span>
 
-        <span className="label hidden items-center gap-6 sm:flex">
-          <span>Aktobe, KZ</span>
-          <span className="opacity-40">/</span>
-          <span>50.28°N 57.17°E</span>
-        </span>
+        <span className="label hidden sm:block">Aktobe, KZ</span>
 
         <span className="label tabular-nums text-ink">
           {String(Math.round(progress)).padStart(3, '0')}%

@@ -26,8 +26,12 @@
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* sized so the six letters of BEKTAI span the full container width */
+  /* The masthead is two lines of monospace, and every glyph is exactly 0.6em
+     wide — so each line gets its own scale and both span the same width:
+     6 × (0.6 − 0.025)em × 25.5 ≈ 9 × (0.6 − 0.025)em × 17. */
   --text-display: clamp(3.5rem, 25.5vw, 23rem);
+  /* the nine letters of TYNYSHTYK, flush with BEKTAY above */
+  --text-surname: clamp(2.33rem, 17vw, 15.33rem);
   --text-hed: clamp(2.25rem, 6vw, 4.5rem);
   /* the flagship project name — deliberately larger than the standard cases */
   --text-subhed: clamp(2.5rem, 6.5vw, 5.5rem);
@@ -310,6 +314,14 @@
 
   html {
     font-size: 9.5pt;
+  }
+
+  /* The masthead is sized in vw, which on A4 turns two lines into half a
+     page. Fixed sizes here keep the letterhead proportional to the CV —
+     the 6:9 ratio between them is preserved, so both lines stay flush. */
+  :root {
+    --text-display: 3.4rem;
+    --text-surname: 2.27rem;
   }
 
   body {

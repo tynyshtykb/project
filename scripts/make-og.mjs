@@ -37,8 +37,9 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <circle cx="104" cy="112" r="5" fill="${ACCENT}"/>
   <text x="122" y="118" font-family="${MONO}" font-size="17" letter-spacing="3" fill="${INK}">PERSONAL PORTFOLIO — ENGINEERING NOTEBOOK</text>
 
-  <!-- name -->
-  <text x="100" y="330" font-family="${FONT}" font-size="168" font-weight="700" letter-spacing="-3" fill="${INK}">BEKTAY</text>
+  <!-- name — two lines, sized so the six and nine letters span the same width -->
+  <text x="100" y="268" font-family="${FONT}" font-size="130" font-weight="700" letter-spacing="-3" fill="${INK}">BEKTAY</text>
+  <text x="100" y="352" font-family="${FONT}" font-size="87" font-weight="700" letter-spacing="-2" fill="${INK}">TYNYSHTYK</text>
 
   <line x1="100" y1="382" x2="1100" y2="382" stroke="${LINE}" stroke-width="1"/>
 

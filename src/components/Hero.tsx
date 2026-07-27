@@ -17,7 +17,7 @@ function Portrait() {
         {SITE.portraitSrc ? (
           <img
             src={SITE.portraitSrc}
-            alt="Portrait of Bektay"
+            alt={`Portrait of ${SITE.fullName}`}
             width={960}
             height={1280}
             loading="eager"
@@ -57,7 +57,8 @@ function Corner({ className = '' }: { className?: string }) {
 
 export function Hero() {
   return (
-    <section id="top" className="relative pb-16 pt-28 md:pb-24 md:pt-36 lg:pb-28 lg:pt-44">
+    // Less headroom than a one-line masthead needed: the name is two lines now.
+    <section id="top" className="relative pb-16 pt-24 md:pb-24 md:pt-32 lg:pb-28 lg:pt-36">
       <div className="shell">
         <Reveal>
           {/* items-start keeps the dot on the first line when the label wraps */}
@@ -72,10 +73,16 @@ export function Hero() {
           </div>
         </Reveal>
 
-        {/* The masthead: sized to fill the container edge to edge. The small
-            negative inset optically aligns the B's stem with the rules. */}
-        <h1 className="display mt-6 -ml-[0.03em] text-display md:mt-8">
-          <WordReveal text={SITE.name} stagger={0} />
+        {/* The masthead: two lines, each scaled so its letters fill the
+            container edge to edge. The small negative inset optically aligns
+            the B's stem with the rules. */}
+        <h1 className="display mt-6 -ml-[0.03em] leading-[0.88] md:mt-8">
+          <span className="block text-display">
+            <WordReveal text={SITE.name} stagger={0} />
+          </span>
+          <span className="block text-surname">
+            <WordReveal text={SITE.surname} stagger={0} delay={110} />
+          </span>
         </h1>
 
         <Rule className="mt-4 md:mt-6" />

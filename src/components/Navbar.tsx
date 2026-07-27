@@ -98,9 +98,9 @@ export function Navbar() {
         <nav className="shell flex h-16 items-center justify-between md:h-[4.5rem]" aria-label="Main">
           <a
             href="#top"
-            className="group relative text-[0.95rem] font-semibold tracking-[0.22em] text-ink"
+            className="group relative text-[0.8rem] font-semibold tracking-[0.16em] text-ink sm:text-[0.95rem] sm:tracking-[0.2em]"
           >
-            {SITE.name}
+            {SITE.name} {SITE.surname}
             <span className="absolute -right-2.5 top-1 h-1 w-1 rounded-full bg-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           </a>
 

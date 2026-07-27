@@ -6,11 +6,14 @@
  */
 
 export const SITE = {
+  /** The masthead sets these as two lines, each at its own scale. */
   name: 'BEKTAY',
-  /** Set to a path like '/bektay-cv.pdf' once a real PDF exists in /public.
-   *  While null, the "Download CV" button opens the browser print dialog and
-   *  the print stylesheet renders this page as a clean A4 CV. */
-  cvPdfPath: null as string | null,
+  surname: 'TYNYSHTYK',
+  /** Running text, alt text and metadata — anywhere one line is wanted. */
+  fullName: 'Bektay Tynyshtyk',
+  /** Generated from this page by `npm run cv` (scripts/make-cv-pdf.mjs).
+   *  Set to null to fall back to the browser print dialog instead. */
+  cvPdfPath: '/bektay-tynyshtyk-cv.pdf' as string | null,
   /** Drop a portrait into /public and set this to e.g. '/portrait.jpg'.
    *  While null, the hero renders a clearly marked placeholder frame. */
   portraitSrc: '/portrait.jpg' as string | null,
@@ -41,7 +44,7 @@ export const NAV = [
 ] as const;
 
 export const ABOUT_PARAGRAPHS = [
-  "I'm a Grade 11 student at Nazarbayev Intellectual School in Aktobe, Kazakhstan. My journey in technology started with robotics, which I have been studying and practicing for 5 years. Over time, I expanded into full-stack web development and artificial intelligence.",
+  "I'm Bektay Tynyshtyk, a Grade 11 student at Nazarbayev Intellectual School in Aktobe, Kazakhstan. My journey in technology started with robotics, which I have been studying and practicing for 5 years. Over time, I expanded into full-stack web development and artificial intelligence.",
   'Today, I combine robotics, software engineering and machine learning to build practical projects — from educational technology and healthcare AI to environmental monitoring and predictive systems.',
   "I'm also exploring entrepreneurship as the founder of OquBot, an educational startup focused on making AI and robotics more accessible.",
 ] as const;
@@ -53,6 +56,21 @@ export const STATS = [
   { value: '2', unit: 'Years', label: 'Robotics Teaching' },
 ] as const;
 
+/**
+ * A project photo. `w`/`h` are the real pixel dimensions of the optimized
+ * file — they reserve the right box before the image loads and let each
+ * figure keep its true proportions, so nothing is ever cropped.
+ * Regenerate the files with `npm run images`.
+ */
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  /** Short mono label printed under the figure. */
+  caption: string;
+  w: number;
+  h: number;
+};
+
 export type Project = {
   num: string;
   name: string;
@@ -63,6 +81,8 @@ export type Project = {
   achievement?: string[];
   tech?: string[];
   links?: { label: string; href: string }[];
+  /** Real photography. Falls back to the generated plate when absent. */
+  images?: ProjectImage[];
   /** 'flagship' = the startup, 'research' = competition/science work, 'client' = paid commercial work */
   kind: 'flagship' | 'research' | 'client';
   plate: 'network' | 'regression' | 'field' | 'signal' | 'aperture';
@@ -83,6 +103,15 @@ export const PROJECTS: Project[] = [
       'Won competitions and received approximately $1,000 in prize money / funding',
     ],
     links: [{ label: 'oqubot.asia', href: 'https://oqubot.asia' }],
+    images: [
+      {
+        src: '/media/oqubot.webp',
+        alt: 'OquBot setup: a laptop running the learning platform beside the assembled robot on its stand',
+        caption: 'Robot and learning platform',
+        w: 1448,
+        h: 1086,
+      },
+    ],
     kind: 'flagship',
     plate: 'network',
   },
@@ -98,6 +127,15 @@ export const PROJECTS: Project[] = [
       { label: 'Live Demo', href: 'https://lipidai.vercel.app' },
       { label: 'GitHub', href: 'https://github.com/tynyshtykb/Lipid_AI' },
     ],
+    images: [
+      {
+        src: '/media/lipidai.webp',
+        alt: 'Lipid AI interface: cholesterol and triglyceride inputs on the left, predicted LDL values from four formulas on the right',
+        caption: 'LDL prediction interface',
+        w: 1400,
+        h: 756,
+      },
+    ],
     kind: 'research',
     plate: 'regression',
   },
@@ -112,6 +150,22 @@ export const PROJECTS: Project[] = [
       'Advanced to the Republican stage of the Daryn Scientific Projects Competition',
       'Received copyright registration',
     ],
+    images: [
+      {
+        src: '/media/ecopolice-hardware.webp',
+        alt: 'EcoPolice hardware prototype: a green sensor enclosure mounted to a model police car',
+        caption: 'Hardware prototype',
+        w: 1280,
+        h: 720,
+      },
+      {
+        src: '/media/ecopolice-dashboard.webp',
+        alt: 'EcoPolice control dashboard showing a map of Aktobe with eco-sensor coverage and a live feed of detected violations',
+        caption: 'Eco-control dashboard',
+        w: 1131,
+        h: 616,
+      },
+    ],
     kind: 'research',
     plate: 'field',
   },
@@ -122,6 +176,22 @@ export const PROJECTS: Project[] = [
     description:
       'QubyrFlow is a machine learning project designed to predict pipeline failures and help identify potential risks before major incidents occur.',
     achievement: ['Finalist at the Republican MirasProjects competition'],
+    images: [
+      {
+        src: '/media/qubyrflow-dashboard.webp',
+        alt: 'QubyrFlow dashboard for pipe PIPE-1001 showing years to failure, corrosion rate, current thickness and a real-time thickness-loss chart',
+        caption: 'Monitoring dashboard',
+        w: 1263,
+        h: 707,
+      },
+      {
+        src: '/media/qubyrflow-sensor.webp',
+        alt: 'QubyrFlow sensor module held against a section of pipe on a cutting mat',
+        caption: 'Sensor module on pipe',
+        w: 960,
+        h: 1280,
+      },
+    ],
     kind: 'research',
     plate: 'signal',
   },
@@ -133,6 +203,15 @@ export const PROJECTS: Project[] = [
     role: 'Full-Stack Web Developer',
     achievement: ['Completed as a paid commercial project', 'Project value: 100,000 KZT'],
     links: [{ label: 'rakursproduction.kz', href: 'https://rakursproduction.kz' }],
+    images: [
+      {
+        src: '/media/rakurs.webp',
+        alt: 'Rakurs Production homepage: the studio name over a photograph of its 2025 best-photo-studio award',
+        caption: 'Delivered site — homepage',
+        w: 1400,
+        h: 756,
+      },
+    ],
     kind: 'client',
     plate: 'aperture',
   },
@@ -226,7 +305,7 @@ export const TECH_STACK = [
     category: 'Robotics Platforms',
     items: ['LEGO EV3', 'LEGO Spike Prime', 'LEGO WeDo'],
   },
-  { category: 'Engineering / CAD', items: ['Fusion 360'] },
+  { category: 'Engineering / Fabrication', items: ['Fusion 360', '3D Printing'] },
   { category: 'Tools / Deployment', items: ['Git', 'GitHub', 'Vercel'] },
 ] as const;
 

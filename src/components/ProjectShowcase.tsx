@@ -1,4 +1,4 @@
-import type { Project } from '../data/content';
+import type { Project, ProjectImage } from '../data/content';
 import { PROJECTS } from '../data/content';
 import { ProjectPlate } from './ProjectPlate';
 import { Reveal, Rule, Section, SectionHeader, WordReveal } from './primitives';
@@ -30,7 +30,78 @@ function ExternalLink({
   );
 }
 
+/**
+ * One photograph, held at its true proportions so nothing is cropped, with a
+ * numbered mono caption underneath in the manner of a lab figure.
+ */
+function Figure({
+  image,
+  num,
+  index,
+  dark = false,
+  priority = false,
+}: {
+  image: ProjectImage;
+  num: string;
+  index: number;
+  dark?: boolean;
+  priority?: boolean;
+}) {
+  // A portrait photo at full column width towers over the case study, so it
+  // is held back to read as a supporting figure rather than the main event.
+  const isPortrait = image.h > image.w;
+
+  return (
+    // Kept out of print: embedding six photos turns a 280 KB CV into 6 MB,
+    // which is too heavy to attach to an application.
+    <figure className={`no-print group/fig ${isPortrait ? 'sm:max-w-[58%]' : ''}`}>
+      <div
+        className={`relative w-full overflow-hidden border transition-colors duration-500 ${
+          dark
+            ? 'border-white/15 bg-white/[0.03] group-hover:border-white/30'
+            : 'border-line bg-paper-2 group-hover:border-ink/40'
+        }`}
+        style={{ aspectRatio: `${image.w} / ${image.h}` }}
+      >
+        <img
+          src={image.src}
+          alt={image.alt}
+          width={image.w}
+          height={image.h}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-[1.3s] ease-[var(--ease-out-quint)] group-hover:scale-[1.025]"
+        />
+      </div>
+      <figcaption
+        className={`mt-3 flex items-baseline justify-between gap-4 ${
+          dark ? 'text-white/45' : ''
+        }`}
+      >
+        <span className="label">{image.caption}</span>
+        <span className={`label ${dark ? 'text-white/35' : ''}`}>
+          Fig. {num}.{index + 1}
+        </span>
+      </figcaption>
+    </figure>
+  );
+}
+
+/**
+ * A project's visuals: its photographs when it has them, otherwise the
+ * generated plate. Two photos stack, so hardware and software read as a pair.
+ */
 function Media({ project, dark = false }: { project: Project; dark?: boolean }) {
+  if (project.images?.length) {
+    return (
+      <div className="flex flex-col gap-10">
+        {project.images.map((image, i) => (
+          <Figure key={image.src} image={image} num={project.num} index={i} dark={dark} />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div
       className={`no-print relative aspect-4/3 w-full overflow-hidden border transition-colors duration-500 ${
@@ -151,6 +222,7 @@ function CaseHeader({
 
 /** The startup — given the widest, tallest treatment on the page. */
 function FlagshipCase({ project }: { project: Project }) {
+  const hero = project.images?.[0];
   return (
     <article className="group">
       <Rule />
@@ -163,16 +235,39 @@ function FlagshipCase({ project }: { project: Project }) {
       </h3>
 
       <Reveal delay={120}>
-        {/* Two canvases rather than one letterboxed drawing: the wide banner
-            fills the frame on tablet and up, the 4:3 plate suits phones. */}
-        <div className="no-print mt-9 aspect-4/3 w-full overflow-hidden border border-line bg-paper-2 text-ink transition-colors duration-500 group-hover:border-ink/40 sm:aspect-21/9 dot-matrix">
-          <div className="hidden h-full w-full sm:block">
-            <ProjectPlate plate={project.plate} variant="banner" />
+        {hero ? (
+          // The flagship photo runs the full width. 16:9 trims only the empty
+          // margins of a 4:3 frame, so the subject stays intact.
+          <figure className="no-print mt-9">
+            <div className="aspect-4/3 w-full overflow-hidden border border-line bg-paper-2 transition-colors duration-500 group-hover:border-ink/40 sm:aspect-16/9">
+              <img
+                src={hero.src}
+                alt={hero.alt}
+                width={hero.w}
+                height={hero.h}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="h-full w-full object-cover transition-transform duration-[1.3s] ease-[var(--ease-out-quint)] group-hover:scale-[1.02]"
+              />
+            </div>
+            <figcaption className="mt-3 flex items-baseline justify-between gap-4">
+              <span className="label">{hero.caption}</span>
+              <span className="label">Fig. {project.num}.1</span>
+            </figcaption>
+          </figure>
+        ) : (
+          // No photo: two canvases rather than one letterboxed drawing — the
+          // wide banner fills the frame on tablet and up, the 4:3 plate suits phones.
+          <div className="no-print mt-9 aspect-4/3 w-full overflow-hidden border border-line bg-paper-2 text-ink transition-colors duration-500 group-hover:border-ink/40 sm:aspect-21/9 dot-matrix">
+            <div className="hidden h-full w-full sm:block">
+              <ProjectPlate plate={project.plate} variant="banner" />
+            </div>
+            <div className="h-full w-full sm:hidden">
+              <ProjectPlate plate={project.plate} />
+            </div>
           </div>
-          <div className="h-full w-full sm:hidden">
-            <ProjectPlate plate={project.plate} />
-          </div>
-        </div>
+        )}
       </Reveal>
 
       <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12">
@@ -223,30 +318,33 @@ function StandardCase({ project, reverse }: { project: Project; reverse: boolean
   );
 }
 
-/** Paid client work — inverted panel to separate it from the research projects. */
+/**
+ * Paid client work. A tinted panel with an accent rule sets it apart from the
+ * research projects without the weight of a full black slab.
+ */
 function ClientCase({ project }: { project: Project }) {
   return (
-    <article className="group -mx-5 bg-ink px-5 py-14 text-paper md:-mx-10 md:px-10 md:py-20 xl:-mx-16 xl:px-16">
-      <div className="h-px w-full bg-white/20" />
+    <article className="group -mx-5 bg-paper-3 px-5 py-14 md:-mx-10 md:px-10 md:py-20 xl:-mx-16 xl:px-16">
+      <div className="h-0.5 w-full bg-accent" />
       <div className="pt-5">
-        <CaseHeader project={project} dark />
+        <CaseHeader project={project} />
       </div>
 
       <div className="mt-8 grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <Reveal>
-            <span className="label text-white/45">Client work</span>
-            <h3 className="hed mt-4 text-4xl text-paper md:text-5xl">{project.name}</h3>
-            <p className="mt-6 text-lg leading-[1.55] tracking-tight text-white/70">
+            <span className="label text-accent">Client work</span>
+            <h3 className="hed mt-4 text-4xl md:text-5xl">{project.name}</h3>
+            <p className="mt-6 text-lg leading-[1.55] tracking-tight text-ink-soft">
               {project.description}
             </p>
-            <Meta project={project} dark />
+            <Meta project={project} />
           </Reveal>
         </div>
 
         <div className="lg:col-span-6 lg:col-start-7">
           <Reveal delay={80}>
-            <Media project={project} dark />
+            <Media project={project} />
           </Reveal>
         </div>
       </div>

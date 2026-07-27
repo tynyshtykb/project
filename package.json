@@ -1,5 +1,5 @@
 {
-  "name": "bektay-portfolio",
+  "name": "bektay-tynyshtyk-portfolio",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
-    "og": "node scripts/make-og.mjs"
+    "og": "node scripts/make-og.mjs",
+    "cv": "npm run build && node scripts/make-cv-pdf.mjs",
+    "images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "react": "^19.1.0",

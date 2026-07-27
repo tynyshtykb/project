@@ -8,8 +8,9 @@
   <circle cx="104" cy="112" r="5" fill="#b24626"/>
   <text x="122" y="118" font-family="Courier New, Courier, monospace" font-size="17" letter-spacing="3" fill="#14130f">PERSONAL PORTFOLIO — ENGINEERING NOTEBOOK</text>
 
-  <!-- name -->
-  <text x="100" y="330" font-family="Courier New, Courier, monospace" font-size="168" font-weight="700" letter-spacing="-3" fill="#14130f">BEKTAY</text>
+  <!-- name — two lines, sized so the six and nine letters span the same width -->
+  <text x="100" y="268" font-family="Courier New, Courier, monospace" font-size="130" font-weight="700" letter-spacing="-3" fill="#14130f">BEKTAY</text>
+  <text x="100" y="352" font-family="Courier New, Courier, monospace" font-size="87" font-weight="700" letter-spacing="-2" fill="#14130f">TYNYSHTYK</text>
 
   <line x1="100" y1="382" x2="1100" y2="382" stroke="#dcd7cd" stroke-width="1"/>
 

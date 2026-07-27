@@ -9,7 +9,11 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
             <Reveal>
-              <p className="display text-4xl md:text-5xl">{SITE.name}</p>
+              <p className="display text-4xl leading-[0.95] md:text-5xl">
+                {SITE.name}
+                <br />
+                {SITE.surname}
+              </p>
             </Reveal>
           </div>
 
@@ -41,7 +45,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="label">© 2026 Bektay</p>
+          <p className="label">© 2026 {SITE.fullName}</p>
           <p className="label">Aktobe, Kazakhstan</p>
           <p className="label no-print">React · TypeScript · Tailwind CSS</p>
         </div>
