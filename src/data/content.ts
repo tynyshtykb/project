@@ -280,6 +280,7 @@ export const ACHIEVEMENTS = [
     meta: 'Physics · network stage → final',
   },
   { place: '1st Place', title: 'Regional WRO Stage', meta: 'Robotics' },
+  { place: 'Finalist', title: 'Solve for Tomorrow', meta: '' },
   { place: 'Finalist', title: 'International STEM Olympiad', meta: '' },
   { place: 'Finalist', title: 'Republican WRO Stage', meta: 'Robotics' },
   { place: 'Finalist', title: 'Republican MirasProjects Competition', meta: '' },
@@ -289,7 +290,6 @@ export const ACHIEVEMENTS = [
     title: 'KazRobotics Sumo Competition',
     meta: 'Robotics · 2022',
   },
-  { place: 'Semi-Finalist', title: 'Solve for Tomorrow', meta: '' },
 ] as const;
 
 export const TECH_STACK = [
