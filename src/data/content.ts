@@ -46,7 +46,7 @@ export const NAV = [
 export const ABOUT_PARAGRAPHS = [
   "I'm Bektay Tynyshtyk, a Grade 11 student at Nazarbayev Intellectual School in Aktobe, Kazakhstan. My journey in technology started with robotics, which I have been studying and practicing for 5 years. Over time, I expanded into full-stack web development and artificial intelligence.",
   'Today, I combine robotics, software engineering and machine learning to build practical projects — from educational technology and healthcare AI to environmental monitoring and predictive systems.',
-  "I'm also exploring entrepreneurship as the founder of OquBot, an educational startup focused on making AI and robotics more accessible.",
+  "I'm also exploring entrepreneurship as the founder of OquBot, an educational startup focused on making AI and robotics more accessible. OquBot won Samsung Solve for Tomorrow, with a prize of 4,000,000 KZT.",
 ] as const;
 
 export const STATS = [
@@ -99,9 +99,9 @@ export const PROJECTS: Project[] = [
     highlights: [
       'Educational technology startup',
       'Focused on AI and robotics education',
-      'Participated in competitions',
-      'Won competitions and received approximately $1,000 in prize money / funding',
+      'Earlier competition wins brought approximately $1,000 in prize money / funding',
     ],
+    achievement: ['Winner — Samsung Solve for Tomorrow', 'Prize: 4,000,000 KZT'],
     links: [{ label: 'oqubot.asia', href: 'https://oqubot.asia' }],
     images: [
       {
@@ -233,7 +233,10 @@ export const EXPERIENCE: ExperienceItem[] = [
     body: [
       'Founded and developed OquBot, an educational ecosystem focused on AI and robotics.',
     ],
-    facts: [{ label: 'Building since', value: '≈ 6 months' }],
+    facts: [
+      { label: 'Building since', value: '≈ 6 months' },
+      { label: 'Samsung Solve for Tomorrow', value: 'Winner · 4,000,000 KZT' },
+    ],
   },
   {
     role: 'Robotics Instructor',
@@ -265,6 +268,7 @@ export const EXPERIENCE: ExperienceItem[] = [
 ];
 
 export const ACHIEVEMENTS = [
+  { place: 'Winner', title: 'Samsung Solve for Tomorrow', meta: 'OquBot · Prize: 4,000,000 KZT' },
   { place: '3rd Place', title: 'INFOMATRIX-ASIA 2026', meta: 'Category: Applied Science' },
   { place: '1st Place', title: 'Republican NatRoboCom Competition', meta: 'Robotics · 2022' },
   {
@@ -280,7 +284,6 @@ export const ACHIEVEMENTS = [
     meta: 'Physics · network stage → final',
   },
   { place: '1st Place', title: 'Regional WRO Stage', meta: 'Robotics' },
-  { place: 'Finalist', title: 'Solve for Tomorrow', meta: '' },
   { place: 'Finalist', title: 'International STEM Olympiad', meta: '' },
   { place: 'Finalist', title: 'Republican WRO Stage', meta: 'Robotics' },
   { place: 'Finalist', title: 'Republican MirasProjects Competition', meta: '' },
