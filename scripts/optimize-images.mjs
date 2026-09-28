@@ -27,7 +27,7 @@ const resolveSource = (name) => {
   throw new Error(`Source image not found in assets-src/ or public/: ${name}`);
 };
 
-/** [source file, output name, max width] */
+/** [source file, output name, max width, optional crop { left, top, width, height }] */
 const JOBS = [
   ['oqubot.png', 'oqubot', 1800],
   ['lipidai.png', 'lipidai', 1400],
@@ -36,17 +36,19 @@ const JOBS = [
   ['qubyrflow.png', 'qubyrflow-dashboard', 1400],
   ['qubyrflow.jpg', 'qubyrflow-sensor', 1100],
   ['rakursproduction.png', 'rakurs', 1400],
+  ['ecopolice-copyright.png', 'ecopolice-copyright', 800],
 ];
 
 const kb = (p) => (statSync(p).size / 1024).toFixed(0);
 
-for (const [source, name, maxWidth] of JOBS) {
+for (const [source, name, maxWidth, crop] of JOBS) {
   const from = resolveSource(source);
   const to = join(outDir, `${name}.webp`);
 
   const meta = await sharp(from).metadata();
-  const info = await sharp(from)
-    .resize({ width: Math.min(maxWidth, meta.width), withoutEnlargement: true })
+  const image = crop ? sharp(from).extract(crop) : sharp(from);
+  const info = await image
+    .resize({ width: Math.min(maxWidth, crop?.width ?? meta.width), withoutEnlargement: true })
     .webp({ quality: 82, effort: 6 })
     .toFile(to);
 

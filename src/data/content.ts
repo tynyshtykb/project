@@ -69,6 +69,9 @@ export type ProjectImage = {
   caption: string;
   w: number;
   h: number;
+  /** Supporting document (e.g. a certificate): shown small under the text
+   *  column instead of in the main photo stack. */
+  aside?: boolean;
 };
 
 export type Project = {
@@ -99,7 +102,6 @@ export const PROJECTS: Project[] = [
     highlights: [
       'Educational technology startup',
       'Focused on AI and robotics education',
-      'Earlier competition wins brought approximately $1,000 in prize money / funding',
     ],
     achievement: ['Winner — Samsung Solve for Tomorrow', 'Prize: 4,000,000 KZT'],
     links: [{ label: 'oqubot.asia', href: 'https://oqubot.asia' }],
@@ -148,7 +150,7 @@ export const PROJECTS: Project[] = [
     achievement: [
       '2nd place at the network stage',
       'Advanced to the Republican stage of the Daryn Scientific Projects Competition',
-      'Received copyright registration',
+      'Received copyright registration — certificate No. 77659 (Kazpatent, 2026)',
     ],
     images: [
       {
@@ -164,6 +166,14 @@ export const PROJECTS: Project[] = [
         caption: 'Eco-control dashboard',
         w: 1131,
         h: 616,
+      },
+      {
+        src: '/media/ecopolice-copyright.webp',
+        alt: 'Kazakhstan state copyright certificate No. 77659, dated 21 August 2026, registering the EcoPolice project to Bektay Tynyshtyk and co-authors',
+        caption: 'Copyright certificate No. 77659',
+        w: 800,
+        h: 1131,
+        aside: true,
       },
     ],
     kind: 'research',

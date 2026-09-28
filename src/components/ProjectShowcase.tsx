@@ -49,7 +49,8 @@ function Figure({
 }) {
   // A portrait photo at full column width towers over the case study, so it
   // is held back to read as a supporting figure rather than the main event.
-  const isPortrait = image.h > image.w;
+  // Aside figures already sit in a narrow column and set their own width.
+  const isPortrait = image.h > image.w && !image.aside;
 
   return (
     // Kept out of print: embedding six photos turns a 280 KB CV into 6 MB,
@@ -92,11 +93,18 @@ function Figure({
  * generated plate. Two photos stack, so hardware and software read as a pair.
  */
 function Media({ project, dark = false }: { project: Project; dark?: boolean }) {
-  if (project.images?.length) {
+  const images = project.images?.filter((image) => !image.aside) ?? [];
+  if (images.length) {
     return (
       <div className="flex flex-col gap-10">
-        {project.images.map((image, i) => (
-          <Figure key={image.src} image={image} num={project.num} index={i} dark={dark} />
+        {images.map((image) => (
+          <Figure
+            key={image.src}
+            image={image}
+            num={project.num}
+            index={project.images!.indexOf(image)}
+            dark={dark}
+          />
         ))}
       </div>
     );
@@ -111,6 +119,25 @@ function Media({ project, dark = false }: { project: Project; dark?: boolean }) 
       }`}
     >
       <ProjectPlate plate={project.plate} />
+    </div>
+  );
+}
+
+/** Supporting documents, set small under the text column. */
+function AsideFigures({ project, dark = false }: { project: Project; dark?: boolean }) {
+  const images = project.images?.filter((image) => image.aside) ?? [];
+  if (!images.length) return null;
+  return (
+    <div className="mt-10 flex flex-col gap-8 max-w-[75%] sm:max-w-[70%]">
+      {images.map((image) => (
+        <Figure
+          key={image.src}
+          image={image}
+          num={project.num}
+          index={project.images!.indexOf(image)}
+          dark={dark}
+        />
+      ))}
     </div>
   );
 }
@@ -311,6 +338,7 @@ function StandardCase({ project, reverse }: { project: Project; reverse: boolean
               {project.description}
             </p>
             <Meta project={project} />
+            <AsideFigures project={project} />
           </Reveal>
         </div>
       </div>
